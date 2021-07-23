@@ -71,6 +71,7 @@ source "virtualbox-iso" "ubuntu-dev-vm" {
 
 build {
   sources = ["sources.virtualbox-iso.ubuntu-dev-vm"]
+
   provisioner "shell" {
     scripts      = [
       "${local.scripts_folder}/init-apt.sh",
@@ -79,5 +80,9 @@ build {
       "${local.scripts_folder}/install-git.sh"
     ]
     execute_command = "echo ${local.password} | {{.Vars}} sudo -S -E bash '{{.Path}}'"
+  }
+
+  post-processor "vagrant" {
+    keep_input_artifact = true
   }
 }
