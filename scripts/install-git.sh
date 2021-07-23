@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 add-apt-repository -y ppa:git-core/ppa
 apt-get update
