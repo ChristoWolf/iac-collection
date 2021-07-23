@@ -2,7 +2,7 @@
 
 add-apt-repository -y ppa:git-core/ppa
 apt-get update
-apt-get install git -y
+apt-get install -y git
 git --version
 
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
