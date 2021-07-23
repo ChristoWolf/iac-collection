@@ -78,6 +78,6 @@ build {
       "${local.scripts_folder}/install-go.sh",
       "${local.scripts_folder}/install-git.sh"
     ]
-    execute_command = "execute_command": "echo ${local.password} | {{.Vars}} sudo -S -E bash '{{.Path}}'"
+    execute_command = "echo ${local.password} | {{.Vars}} sudo -S -E bash '{{.Path}}'"
   }
 }
