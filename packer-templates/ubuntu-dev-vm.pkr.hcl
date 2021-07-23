@@ -37,6 +37,10 @@ local "password" {
   sensitive  = true
 }
 
+local "scripts_folder" {
+  expression = "./scripts"
+}
+
 source "virtualbox-iso" "ubuntu-dev-vm" {
   # See https://www.packer.io/docs/builders/virtualbox/iso.
   guest_os_type = "Ubuntu_64"
@@ -67,9 +71,13 @@ source "virtualbox-iso" "ubuntu-dev-vm" {
 
 build {
   sources = ["sources.virtualbox-iso.ubuntu-dev-vm"]
-  # provisioner "shell" {
-  #   script       = "script.sh"
-  #   pause_before = "10s"
-  #   timeout      = "10s"
-  # }
+  provisioner "shell" {
+    scripts      = [
+      "${local.scripts_folder}/init-apt.sh",
+      "${local.scripts_folder}/install-powershell.sh",
+      "${local.scripts_folder}/install-go.sh",
+      "${local.scripts_folder}/install-git.sh"
+    ]
+    execute_command = "execute_command": "echo ${local.password} | {{.Vars}} sudo -S -E bash '{{.Path}}'"
+  }
 }
