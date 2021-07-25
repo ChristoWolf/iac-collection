@@ -1,5 +1,5 @@
 #!/bin/bash
 
 hostnamectl
-hostnamectl set-hostname $VM_NAME
+sudo hostnamectl set-hostname $VM_NAME
 hostnamectl

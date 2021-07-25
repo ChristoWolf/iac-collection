@@ -5,9 +5,7 @@ autoinstall:
   # Related example: https://www.neilgrogan.com/vagrant-ubuntu-fossa/
   # Another related example: https://imagineer.in/blog/packer-build-for-ubuntu-20-04/
   # Probably another good example which fits our use case: https://askubuntu.com/a/1253901
-  # Even more examples: https://github.com/canonical/subiquity/tree/main/examples 
-  # And more: 
-  # And more: https://nickhowell.uk/2020/05/01/Automating-Ubuntu2004-Images/
+  # Even more examples: https://github.com/canonical/subiquity/tree/main/examples
   # And more: https://nickhowell.uk/2020/05/01/Automating-Ubuntu2004-Images/
   version: 1
   locale: en_US.UTF-8
@@ -19,3 +17,9 @@ autoinstall:
     password: '$2y$12$zfS.Dpm682guriw6fJ5PXu4Kv7GSs7VYHUPGphQdSnT0wb4Rt1tVS'
   ssh:
     install-server: yes
+  late-commands:
+    # This is needed, see https://www.vagrantup.com/docs/boxes/base#password-less-sudo.
+    # I could not get it to work via shell script provisioner in Packer,
+    # because working with Linux is not my strongest suit.
+    - "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' >> /target/etc/sudoers.d/vagrant"
+    - "chmod 440 /target/etc/sudoers.d/vagrant"
