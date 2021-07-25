@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
 
     # VM settings, see https://www.vagrantup.com/docs/vagrantfile/machine_settings.
     config.vm.box = "ubuntu-dev-vm"
-    config.vm.hostname = ENV['VM_NAME']
+    config.vm.hostname = ENV['VM_NAME'] # One of those things which requires passwordless sudo.
     config.vm.provider "virtualbox" do |v|
         # See https://www.vagrantup.com/docs/providers/virtualbox/common-issues
         # for common issues.
@@ -11,18 +11,9 @@ Vagrant.configure("2") do |config|
         #v.memory = ENV['VM_MEMORY'] # Uncomment to enable.
         #v.cpus = ENV['VM_CPUS'] # Uncomment to enable.
     end
-    # Provisioners.
-    # # This is a work-around for the config.vm.hostname bug,
-    # # where the host name cannot be set due to permission being denied for /etc/hosts.
-    # config.vm.provision "shell", path: "./../../scripts/update-hostname.sh", env: {"VM_NAME" => ENV['VM_NAME']}
-    # # Does not work!
 
     # SSH settings, see https://www.vagrantup.com/docs/vagrantfile/ssh_settings.
     config.ssh.username = "vagrant"
     config.ssh.password = "vagrant"
-    # # The default command (https://www.vagrantup.com/docs/vagrantfile/ssh_settings#config-ssh-sudo_command)
-    # # does not work somehow and always misses the password.
-    # config.ssh.sudo_command = "echo vagrant | sudo -E -S bash -c '%c'"
-    # # Does not work, output seems to be suppressed even.
 
 end
