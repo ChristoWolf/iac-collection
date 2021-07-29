@@ -75,6 +75,7 @@ build {
   provisioner "shell" {
     scripts      = [
       "${local.scripts_folder}/init-apt.sh",
+      "${local.scripts_folder}/install-guestadditions.sh",
       "${local.scripts_folder}/install-curl.sh",
       "${local.scripts_folder}/install-docker.sh", # Requires curl.
       "${local.scripts_folder}/install-powershell.sh",
