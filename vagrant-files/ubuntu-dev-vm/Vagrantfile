@@ -3,6 +3,7 @@ Vagrant.configure("2") do |config|
     # VM settings, see https://www.vagrantup.com/docs/vagrantfile/machine_settings.
     config.vm.box = "ubuntu-dev-vm"
     config.vm.hostname = ENV['VM_NAME'] # One of those things which requires passwordless sudo.
+    config.vm.network "public_network" # Explicitly specify your default network interface here if needed, see https://www.vagrantup.com/docs/networking/public_network#default-network-interface.
     config.vm.provider "virtualbox" do |v|
         # See https://www.vagrantup.com/docs/providers/virtualbox/common-issues
         # for common issues.
