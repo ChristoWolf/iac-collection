@@ -55,8 +55,9 @@ source "virtualbox-iso" "ubuntu-dev-vm" {
   http_directory = "."
   headless = var.headless
   boot_wait = "5s"
+  boot_keygroup_interval = "500ms" # Needed to prevent missing key presses due to latency.
   boot_command = [
-    "<enter><enter><f6><esc><wait>",
+    "<enter><enter><f6><esc><wait10>",
     "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/unattended-files/ubuntu-dev-vm/",
     "<enter><wait>"
   ]
