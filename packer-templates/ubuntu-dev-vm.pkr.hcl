@@ -52,13 +52,14 @@ source "virtualbox-iso" "ubuntu-dev-vm" {
   ssh_password = local.password
   ssh_timeout = "30m"
   ssh_handshake_attempts = 100000 # High number is needed, or Packer will fail during installation.
-  http_directory = "."
+  http_directory = "./unattended-files/ubuntu-dev-vm"
   headless = var.headless
   boot_wait = "5s"
+  boot_keygroup_interval = "500ms" # Needed to prevent missing key presses due to latency.
   boot_command = [
-    "<enter><enter><f6><esc><wait>",
-    "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/unattended-files/ubuntu-dev-vm/",
-    "<enter><wait>"
+    "<enter><enter><f6><esc><wait5>",
+    " autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+    "<enter>"
   ]
   shutdown_command = "echo ${local.password} | sudo -S shutdown -P now" # Password needs to be correct!
   disk_size = var.disk_size
