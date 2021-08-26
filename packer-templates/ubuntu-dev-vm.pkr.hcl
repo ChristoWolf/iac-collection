@@ -19,7 +19,7 @@ variable "disk_size" {
 
 variable "headless" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "memory" {
@@ -56,6 +56,7 @@ source "virtualbox-iso" "ubuntu-dev-vm" {
   headless = var.headless
   boot_wait = "5s"
   boot_keygroup_interval = "500ms" # Needed to prevent missing key presses due to latency.
+  # The reasoning behind the key presses is listed at the bottom of https://imagineer.in/blog/packer-build-for-ubuntu-20-04/.
   boot_command = [
     "<enter><enter><f6><esc><wait5>",
     " autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
