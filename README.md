@@ -11,6 +11,13 @@ If you find any issues, feel free to contribute by creating an issue or a pull r
 1. Install [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli), version >= 1.7.
 2. Install [Vagrant](https://www.vagrantup.com/docs/installation), version >= 2.2.
 3. Install [VirtualBox + Extension Pack](https://www.virtualbox.org/wiki/Downloads), version >= 6.1.
+4. If using a Windows host, make sure to disable all built-in virtualization features, as they WILL mess with third-party virtualization! Namely, disable these Windows features:
+   - Hyper-V (and child features)
+   - Virtual Machine Platform
+   - Windows Hypervisor Platform
+   - Windows Subsystem for Linux (i.e. WSL 1/2)
+
+   I know that this locks us out of those features, but there are [many advantages to this](#wsl-2-vs-third-party-virtualization)!
 
 ## Usage quick guides
 
@@ -65,14 +72,14 @@ Other than that, your client still requires Docker CLI and docker-compose CLI to
 
 ### Hostname resolution
 
-By default, the VM is only reachable from outside via its dynamically assigned IP address. You can get it by `vagrant ssh`ing into the machine and executing `ip a`. It's the second (bridged) adapter's IP.
+By default, the VM is only reachable from outside via its dynamically assigned IP address. You can get it by `vagrant ssh`ing into the machine. If not shown upon login, you may additionally execute `ip a`. It's the second (bridged) adapter's IP.
 
 Automatic hostname registration is not implemented yet as it highly depends on the host machine.
 For now, consider doing it manually by registering it in your host's [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) or your DNS, if feasible.
 
 If needed, you can also set a [static IP](`ubuntu-dev-vm`) for the bridged adapter, besides a wide range of other [networking options](https://www.vagrantup.com/docs/networking).
 
-### WSL 2 vs. `ubuntu-dev-vm`
+### WSL 2 vs. third-party virtualization
 
 You might ask yourself, "why not just use WSL 2?". It mainly boils down to what you want to achieve with your virtual Linux system.
 
