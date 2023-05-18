@@ -42,7 +42,7 @@ local "scripts_folder" {
 }
 
 source "virtualbox-iso" "ubuntu-dev-vm" {
-  # See https://www.packer.io/docs/builders/virtualbox/iso.
+  # See https://developer.hashicorp.com/packer/plugins/builders/virtualbox/iso.
   guest_os_type = "Ubuntu_64"
   # Autoinstall requires Ubuntu Server, but that can be extended with ubuntu-desktop, see https://askubuntu.com/a/1253901.
   iso_url = "https://releases.ubuntu.com/20.04.2/ubuntu-20.04.2-live-server-amd64.iso"
