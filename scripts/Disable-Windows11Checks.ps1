@@ -9,7 +9,7 @@
 $ProgressPreference = "SilentlyContinue"
 
 $regPath = "HKLM:\SYSTEM\Setup\LabConfig"
-$regNames = @("BypassTPMCheck","BypassSecureBootCheck","BypassRAMCheck","BypassCPUCheck")
+$regNames = @("BypassTPMCheck","BypassSecureBootCheck","BypassRAMCheck","BypassCPUCheck","BypassStorageCheck ")
 $regValue = 1
 New-Item -Path $regPath -Force -ErrorAction "SilentlyContinue"
 foreach ($regName in $regNames) {
