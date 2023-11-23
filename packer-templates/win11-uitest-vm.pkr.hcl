@@ -80,7 +80,6 @@ source "virtualbox-iso" "win11-uitest-vm" {
   memory       = var.memory
   floppy_files = [
     "${var.autounattend}",
-    "${local.scripts_folder}/Disable-Windows11Checks.ps1",
     "${local.scripts_folder}/Install-OpenSSH.ps1"
   ]
   guest_os_type    = "Windows11_64" # Can be found via `VBoxManage list ostypes`.
