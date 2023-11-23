@@ -7,16 +7,9 @@ packer {
   }
 }
 
-# Since Windows 11, the Autounattend.xml file
-# NEEDS to set very specific registry values
-# to bypass TPM, secure boot and hardware requirements.
-# Needs to be done using `RunSynchronous` commands
-# in the `Microsoft-Windows-Setup` component.
-# I failed to do it using boot commands
-# (as it is done in https://github.com/StefanScherer/packer-windows/blob/main/windows_11.json)
 variable "autounattend" {
   type    = string
-  default = "./unattended-files/win11-uitest-vm/Autounattend.xml"
+  default = "./unattended-files/win10-uitest-vm/Autounattend.xml"
 }
 
 variable "cpus" {
@@ -24,8 +17,6 @@ variable "cpus" {
   default = "4"
 }
 
-# Needs at least 64 GB,
-# see https://www.microsoft.com/en-us/windows/windows-11-specifications.
 variable "disk_size" {
   type = number
   # Computed using https://www.unitconverters.net/data-storage/gb-to-mb.htm.
@@ -34,7 +25,7 @@ variable "disk_size" {
 
 variable "iso_checksum" {
   type    = string
-  default = "EBBC79106715F44F5020F77BD90721B17C5A877CBC15A3535B99155493A1BB3F"
+  default = "EF7312733A9F5D7D51CFA04AC497671995674CA5E1058D5164D6028F0938D668"
 }
 
 variable "iso_checksum_type" {
@@ -44,12 +35,10 @@ variable "iso_checksum_type" {
 
 variable "iso_url" {
   type = string
-  # See also https://github.com/StefanScherer/packer-windows/blob/main/windows_11.json.
-  default = "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66751/22621.525.220925-0207.ni_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso"
+  # See also https://github.com/StefanScherer/packer-windows/blob/main/windows_10.json.
+  default = "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66750/19045.2006.220908-0225.22h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso"
 }
 
-# Needs at least 4 GB of RAM,
-# see https://www.microsoft.com/en-us/windows/windows-11-specifications.
 variable "memory" {
   type    = string
   default = "4096"
@@ -64,7 +53,7 @@ variable "usb" {
 # in mind (i.e. max. 15 characters)!
 variable "vm_name" {
   type    = string
-  default = "win11-uitest-vm"
+  default = "win10-uitest-vm"
 }
 
 # Local variables.
@@ -79,7 +68,7 @@ local "scripts_folder" {
 }
 
 # See https://developer.hashicorp.com/packer/plugins/builders/virtualbox/iso.
-source "virtualbox-iso" "win11-uitest-vm" {
+source "virtualbox-iso" "win10-uitest-vm" {
   boot_wait    = "2m"
   communicator = "ssh"
   disk_size    = var.disk_size
@@ -89,7 +78,7 @@ source "virtualbox-iso" "win11-uitest-vm" {
     "${var.autounattend}",
     "${local.scripts_folder}/Install-OpenSSH.ps1"
   ]
-  guest_os_type    = "Windows11_64" # Can be found via `VBoxManage list ostypes`.
+  guest_os_type    = "Windows10_64" # Can be found via `VBoxManage list ostypes`.
   headless         = "false"
   iso_checksum     = "${var.iso_checksum_type}:${var.iso_checksum}"
   iso_url          = var.iso_url
@@ -106,7 +95,7 @@ source "virtualbox-iso" "win11-uitest-vm" {
 }
 
 build {
-  sources = ["sources.virtualbox-iso.win11-uitest-vm"]
+  sources = ["sources.virtualbox-iso.win10-uitest-vm"]
 
   provisioner "powershell" {
     elevated_password = "vagrant"
