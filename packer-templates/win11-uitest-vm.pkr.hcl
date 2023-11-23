@@ -7,6 +7,13 @@ packer {
   }
 }
 
+# Since Windows 11, the Autounattend.xml file
+# NEEDS to set very specific registry values
+# to bypass TPM, secure boot and hardware requirements.
+# Needs to be done using `RunSynchronous` commands
+# in the `Microsoft-Windows-Setup` component.
+# I failed to do it using boot commands
+# (as it is done in https://github.com/StefanScherer/packer-windows/blob/main/windows_11.json)
 variable "autounattend" {
   type    = string
   default = "./unattended-files/win11-uitest-vm/Autounattend.xml"
