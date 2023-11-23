@@ -82,7 +82,7 @@ source "virtualbox-iso" "win11-uitest-vm" {
     "${var.autounattend}",
     "${local.scripts_folder}/Install-OpenSSH.ps1"
   ]
-  guest_os_type    = "Windows11" # See https://www.virtualbox.org/browser/vbox/trunk/src/VBox/Main/src-all/Global.cpp.
+  guest_os_type    = "Windows11_64" # Can be found via `VBoxManage list ostypes`.
   headless         = "false"
   iso_checksum     = "${var.iso_checksum_type}:${var.iso_checksum}"
   iso_url          = var.iso_url
