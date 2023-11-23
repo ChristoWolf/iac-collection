@@ -20,7 +20,7 @@ variable "cpus" {
 # Needs at least 64 GB,
 # see https://www.microsoft.com/en-us/windows/windows-11-specifications.
 variable "disk_size" {
-  type    = number
+  type = number
   # Computed using https://www.unitconverters.net/data-storage/gb-to-mb.htm.
   default = 102400
 }
@@ -76,9 +76,7 @@ source "virtualbox-iso" "win11-uitest-vm" {
   boot_wait    = "2m"
   communicator = "ssh"
   disk_size    = var.disk_size
-  disk_type_id = "1"
   cpus         = var.cpus
-  cores        = var.cores
   memory       = var.memory
   floppy_files = [
     "${var.autounattend}",
@@ -107,7 +105,7 @@ build {
     elevated_password = "vagrant"
     elevated_user     = local.password
     scripts = [
-      "${local.scripts_folder}/Disable-WindowsUpdates.ps1"
+      "${local.scripts_folder}/Disable-WindowsUpdates.ps1",
       "${local.scripts_folder}/Disable-PwExpiration.ps1",
       "${local.scripts_folder}/Disable-Hibernate.ps1",
       "${local.scripts_folder}/Disable-Screensaver.ps1",
