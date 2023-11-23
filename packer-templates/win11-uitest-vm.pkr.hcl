@@ -21,7 +21,7 @@ variable "autounattend" {
 
 variable "cpus" {
   type    = string
-  default = "2"
+  default = "4"
 }
 
 # Needs at least 64 GB,
