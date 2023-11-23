@@ -1,6 +1,7 @@
 # Cache objects
 packer_cache/
 **/.vagrant/rgloader/loader.rb
+output*/*.vdi
 
 # Crash log
 crash.log
