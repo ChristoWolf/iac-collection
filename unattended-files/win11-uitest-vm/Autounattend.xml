@@ -97,9 +97,15 @@
                     <RequiresUserInput>false</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
+                    <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\Disable-Windows11Checks.ps1</CommandLine>
+                    <Description>See https://gearupwindows.com/fix-this-pc-cant-run-windows-11-error-in-virtualbox-or-vmware/.</Description>
+                    <Order>3</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell -NoLogo -ExecutionPolicy RemoteSigned -File a:\Install-OpenSSH.ps1</CommandLine>
                     <Description>Install (and configure) OpenSSH, as WinRM communication is unreliable.</Description>
-                    <Order>3</Order>
+                    <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                 </SynchronousCommand>
             </FirstLogonCommands>

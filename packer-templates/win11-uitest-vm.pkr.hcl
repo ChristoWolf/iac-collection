@@ -73,23 +73,14 @@ local "scripts_folder" {
 
 # See https://developer.hashicorp.com/packer/plugins/builders/virtualbox/iso.
 source "virtualbox-iso" "win11-uitest-vm" {
-  # This is needed for Windows 11,
-  # see also https://github.com/StefanScherer/packer-windows/blob/main/windows_11.json.
-  boot_command = [
-    "<leftShiftOn><f10><leftShiftOff><wait5>",
-    "reg add HKLM\\SYSTEM\\Setup\\LabConfig /t REG_DWORD /v BypassTPMCheck /d 1<return><wait5>",
-    "reg add HKLM\\SYSTEM\\Setup\\LabConfig /t REG_DWORD /v BypassSecureBootCheck /d 1<return><wait5>",
-    "exit<return>",
-    "<wait5><return>"
-  ]
-  boot_keygroup_interval = "500ms" # Needed to prevent missing key presses due to latency.
-  boot_wait              = "2m"
-  communicator           = "ssh"
-  disk_size              = var.disk_size
-  cpus                   = var.cpus
-  memory                 = var.memory
+  boot_wait    = "2m"
+  communicator = "ssh"
+  disk_size    = var.disk_size
+  cpus         = var.cpus
+  memory       = var.memory
   floppy_files = [
     "${var.autounattend}",
+    "${local.scripts_folder}/Disable-Windows11Checks.ps1",
     "${local.scripts_folder}/Install-OpenSSH.ps1"
   ]
   guest_os_type    = "Windows11_64" # Can be found via `VBoxManage list ostypes`.
