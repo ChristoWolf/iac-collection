@@ -117,8 +117,6 @@ build {
       "${local.scripts_folder}/Disable-Hibernate.ps1",
       "${local.scripts_folder}/Disable-Screensaver.ps1",
       "${local.scripts_folder}/Disable-Notifications.ps1",
-      "${local.scripts_folder}/Uninstall-WindowsPhotos.ps1",
-      "${local.scripts_folder}/Disable-NewsFeed.ps1",
       "${local.scripts_folder}/Enable-DeveloperMode.ps1",
       "${local.scripts_folder}/Install-WinAppDriver.ps1",
     ]
