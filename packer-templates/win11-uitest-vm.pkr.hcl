@@ -9,7 +9,7 @@ packer {
 
 variable "autounattend" {
   type    = string
-  default = "./answer-files/win10/SystemTestAgent/Autounattend.xml"
+  default = "./unattended-files/win11-uitest-vm/Autounattend.xml"
 }
 
 variable "cpus" {
@@ -82,7 +82,7 @@ source "virtualbox-iso" "win11-uitest-vm" {
   memory       = var.memory
   floppy_files = [
     "${var.autounattend}",
-    "${var.scripts_folder}/Install-OpenSSH.ps1"
+    "${local.scripts_folder}/Install-OpenSSH.ps1"
   ]
   guest_os_type    = "Windows11" # See https://www.virtualbox.org/browser/vbox/trunk/src/VBox/Main/src-all/Global.cpp.
   headless         = "false"
