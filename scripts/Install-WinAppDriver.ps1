@@ -6,7 +6,19 @@ $ProgressPreference = "SilentlyContinue"
 
 # Workaround: https://stackoverflow.com/questions/34331206/ignore-ssl-warning-with-powershell-downloadstring
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls12
-#[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+# Workaround: https://stackoverflow.com/a/15841856
+Add-Type @"
+    using System.Net;
+    using System.Security.Cryptography.X509Certificates;
+    public class TrustAllCertsPolicy : ICertificatePolicy {
+        public bool CheckValidationResult(
+            ServicePoint srvPoint, X509Certificate certificate,
+            WebRequest request, int certificateProblem) {
+            return true;
+        }
+    }
+"@
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 
 try {
     $urlPattern = "https://*"
