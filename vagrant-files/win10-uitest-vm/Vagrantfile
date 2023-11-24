@@ -1,6 +1,7 @@
 vmname = ENV['VM_NAME'] || "win10-uitest-vm"
 vmmemsize = ENV['VM_MEMSIZE'] || "4096"
 vmcpus = ENV['VM_CPUS'] || "4"
+defaultnic = ENV['VAGRANT_DEFAULT_NIC'] || "Intel(R) Wi-Fi 6E AX211 160MHz"
 
 Vagrant.configure("2") do |config|
     # VM settings, see https://www.vagrantup.com/docs/vagrantfile/machine_settings.
@@ -9,7 +10,6 @@ Vagrant.configure("2") do |config|
     config.vm.box = "win10-uitest-vm"
     config.vm.guest = :windows
     config.vm.hostname = vmname
-    config.vm.network "public_network"
     config.vm.provider "virtualbox" do |v|
         # See https://www.vagrantup.com/docs/providers/virtualbox/common-issues
         # for common issues.
