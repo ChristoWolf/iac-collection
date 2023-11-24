@@ -1,5 +1,7 @@
 # Cache objects
 packer_cache/
+**/.vagrant/
+output*/*.vdi
 
 # Crash log
 crash.log
