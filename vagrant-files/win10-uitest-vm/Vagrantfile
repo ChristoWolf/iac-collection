@@ -28,6 +28,6 @@ Vagrant.configure("2") do |config|
     config.ssh.password = "vagrant"
 
     # Copy the demo binary.
-    config.vm.provision "file", source: "../../tools/Demo/Demo.exe", destination: "C:/Demo.exe"
+    config.vm.provision "file", source: "../../tools/Demo/Demo.exe", destination: "C:/Users/vagrant/Desktop/Demo.exe"
 
 end

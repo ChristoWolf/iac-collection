@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Threading;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
@@ -23,6 +24,12 @@ buttonPlus.Click();
 buttonOne.Click();
 buttonEquals.Click();
 var result = Regex.Match(resultDisplay.Text, @"\d+").Value;
-Console.WriteLine($"1 + 1 = {result}");
+Thread.Sleep(TimeSpan.FromSeconds(1));
+Console.WriteLine($"");
+Console.WriteLine($"=========================================================");
+Console.WriteLine($"\t1 + 1 = {result}");
+Console.WriteLine($"\tThe result has been captured from the UI.");
+Console.WriteLine($"=========================================================");
+Thread.Sleep(TimeSpan.FromSeconds(10));
 driver.Quit();
 process.Kill();
