@@ -1,31 +1,29 @@
-vmname = ENV['VM_NAME'] || "win11-uitest-vm"
+vmname = ENV['VM_NAME'] || "win10-uitest-vm"
 vmmemsize = ENV['VM_MEMSIZE'] || "4096"
-vmcpus = ENV['VM_CPUS'] || "2"
+vmcpus = ENV['VM_CPUS'] || "4"
+defaultnic = ENV['VAGRANT_DEFAULT_NIC'] || "Intel(R) Wi-Fi 6E AX211 160MHz"
 
 Vagrant.configure("2") do |config|
     # VM settings, see https://www.vagrantup.com/docs/vagrantfile/machine_settings.
     config.vm.communicator = :winssh
     config.vm.define vmname
-    config.vm.box = "win11-uitest-vm"
+    config.vm.box = "win10-uitest-vm"
     config.vm.guest = :windows
     config.vm.hostname = vmname
-    config.vm.network "public_network"
     config.vm.provider "virtualbox" do |v|
         # See https://www.vagrantup.com/docs/providers/virtualbox/common-issues
         # for common issues.
         v.gui = true
-        v.name = ENV['VM_NAME']
-        v.memory = ENV['VM_MEMORY']
-        v.cpus = ENV['VM_CPUS']
+        v.name = vmname
+        v.memory = vmmemsize
+        v.cpus = vmcpus
         # Enables symlinks when running Vagrant in an elevated terminal,
         # see https://www.rudylee.com/blog/2014/10/27/symbolic-links-with-vagrant-windows/.
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
     end
-
     # SSH settings, see https://www.vagrantup.com/docs/vagrantfile/ssh_settings.
     config.winssh.shell = :powershell
     # Explicitly enforce use of password-based authentication for simplicity.
     config.ssh.username = "vagrant"
     config.ssh.password = "vagrant"
-
 end
